@@ -1,0 +1,38 @@
+{ "frames": [
+   {
+    "filename": "wolf 0.png",
+    "frame": { "x": 0, "y": 0, "w": 257, "h": 259 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 257, "h": 259 },
+    "sourceSize": { "w": 257, "h": 259 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 1.png",
+    "frame": { "x": 257, "y": 0, "w": 257, "h": 259 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 257, "h": 259 },
+    "sourceSize": { "w": 257, "h": 259 },
+    "duration": 100
+   },
+   {
+    "filename": "wolf 2.png",
+    "frame": { "x": 514, "y": 0, "w": 257, "h": 259 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 257, "h": 259 },
+    "sourceSize": { "w": 257, "h": 259 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "https://github.com/LibreSprite/LibreSprite/",
+  "version": "1.1-dev",
+  "image": "D:\\tools\\wolf-sheet.png",
+  "format": "RGBA8888",
+  "size": { "w": 771, "h": 259 },
+  "scale": "1"
+ }
+}

@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://devil_enemy_scene"]
+
+[ext_resource type="Script" path="res://scripts/actors/goblin_controller.gd" id="1_devil"]
+[ext_resource type="Script" path="res://scripts/devil_animation.gd" id="2_sprite"]
+[ext_resource type="Script" path="res://scripts/components/combatant.gd" id="3_combatant"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_devil"]
+radius = 22.0
+
+[node name="Devil" type="CharacterBody2D"]
+script = ExtResource("1_devil")
+move_speed = 80.0
+invert_flip = true
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.33, 0.33)
+script = ExtResource("2_sprite")
+
+[node name="Combatant" type="Node" parent="."]
+script = ExtResource("3_combatant")
+max_hp = 20
+atk = 3
+attack_range = 75.0
+attack_cooldown = 1.2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_devil")

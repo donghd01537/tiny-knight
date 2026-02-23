@@ -1,0 +1,69 @@
+╔════════════════════════════════════════════════════════════════╗
+║          KNIGHT ANIMATION - MANUAL CONTROLS                    ║
+╠════════════════════════════════════════════════════════════════╣
+║                                                                ║
+║  ANIMATION TRIGGERS:                                           ║
+║                                                                ║
+║    [1] → Idle      (standing, breathing)                      ║
+║    [2] → Attack    (sword swing)                              ║
+║    [3] → Hit       (take damage)                              ║
+║    [4] → Death     (fall down)                                ║
+║                                                                ║
+║  MOVEMENT:                                                     ║
+║                                                                ║
+║    [→] → Walk Right  (150 px/s)                               ║
+║    [←] → Walk Left   (150 px/s)                               ║
+║                                                                ║
+╠════════════════════════════════════════════════════════════════╣
+║  HOW IT WORKS:                                                 ║
+╠════════════════════════════════════════════════════════════════╣
+║                                                                ║
+║  • Knight faces the direction of last movement                 ║
+║  • Number keys use current facing direction                    ║
+║  • Attack/Hit/Death play once, then return to Idle            ║
+║  • Walk animations loop while arrow key held                   ║
+║  • Release arrow key → returns to Idle                         ║
+║                                                                ║
+╠════════════════════════════════════════════════════════════════╣
+║  ANIMATION SPEEDS:                                             ║
+╠════════════════════════════════════════════════════════════════╣
+║                                                                ║
+║    Idle:    4 FPS  (0.5s per cycle)                           ║
+║    Walk:    6 FPS  (0.67s per cycle)                          ║
+║    Attack:  8 FPS  (0.5s total)                               ║
+║    Hit:     6 FPS  (0.33s total)                              ║
+║    Death:   4 FPS  (0.5s total)                               ║
+║                                                                ║
+╠════════════════════════════════════════════════════════════════╣
+║  EXAMPLE TEST SEQUENCE:                                        ║
+╠════════════════════════════════════════════════════════════════╣
+║                                                                ║
+║  1. Press [1] → See idle animation                            ║
+║  2. Hold  [→] → Walk right                                    ║
+║  3. Press [2] → Attack (facing right)                         ║
+║  4. Press [3] → Get hit (facing right)                        ║
+║  5. Press [4] → Death (facing right)                          ║
+║  6. Press [1] → Reset to idle                                 ║
+║  7. Hold  [←] → Walk left                                     ║
+║  8. Press [2] → Attack (facing left)                          ║
+║                                                                ║
+╠════════════════════════════════════════════════════════════════╣
+║  TO START:                                                     ║
+╠════════════════════════════════════════════════════════════════╣
+║                                                                ║
+║  1. Open Godot 4                                              ║
+║  2. Open: scenes/world/Battle.tscn                            ║
+║  3. Press F6 (Run Current Scene)                              ║
+║  4. Test with keys 1-4 and arrow keys                         ║
+║                                                                ║
+╚════════════════════════════════════════════════════════════════╝
+
+Files:
+  • scripts/actors/hero_manual_test.gd - Manual control logic
+  • scripts/knight_animation_setup.gd - Animation system
+  • scenes/world/Battle.tscn - Test scene
+
+Documentation:
+  • MANUAL_CONTROLS.md - Full documentation
+  • ANIMATION_SETUP_COMPLETE.md - Animation details
+  • DEMO_LOOP.md - Automated demo info

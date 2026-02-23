@@ -1,0 +1,38 @@
+{ "frames": [
+   {
+    "filename": "goblin 0.png",
+    "frame": { "x": 0, "y": 0, "w": 257, "h": 257 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 257, "h": 257 },
+    "sourceSize": { "w": 257, "h": 257 },
+    "duration": 100
+   },
+   {
+    "filename": "goblin 1.png",
+    "frame": { "x": 257, "y": 0, "w": 257, "h": 257 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 257, "h": 257 },
+    "sourceSize": { "w": 257, "h": 257 },
+    "duration": 100
+   },
+   {
+    "filename": "goblin 2.png",
+    "frame": { "x": 514, "y": 0, "w": 257, "h": 257 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 257, "h": 257 },
+    "sourceSize": { "w": 257, "h": 257 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "https://github.com/LibreSprite/LibreSprite/",
+  "version": "1.1-dev",
+  "image": "D:\\tools\\goblin-sheet.png",
+  "format": "RGBA8888",
+  "size": { "w": 771, "h": 257 },
+  "scale": "1"
+ }
+}

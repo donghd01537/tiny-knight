@@ -1,0 +1,47 @@
+{ "frames": [
+   {
+    "filename": "ChatGPT Image Feb 22, 2026, 09_43_38 PM 0.png",
+    "frame": { "x": 0, "y": 0, "w": 108, "h": 108 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 108, "h": 108 },
+    "sourceSize": { "w": 108, "h": 108 },
+    "duration": 100
+   },
+   {
+    "filename": "ChatGPT Image Feb 22, 2026, 09_43_38 PM 1.png",
+    "frame": { "x": 108, "y": 0, "w": 108, "h": 108 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 108, "h": 108 },
+    "sourceSize": { "w": 108, "h": 108 },
+    "duration": 100
+   },
+   {
+    "filename": "ChatGPT Image Feb 22, 2026, 09_43_38 PM 2.png",
+    "frame": { "x": 216, "y": 0, "w": 108, "h": 108 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 108, "h": 108 },
+    "sourceSize": { "w": 108, "h": 108 },
+    "duration": 100
+   },
+   {
+    "filename": "ChatGPT Image Feb 22, 2026, 09_43_38 PM 3.png",
+    "frame": { "x": 324, "y": 0, "w": 108, "h": 108 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 108, "h": 108 },
+    "sourceSize": { "w": 108, "h": 108 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "https://github.com/LibreSprite/LibreSprite/",
+  "version": "1.1-dev",
+  "image": "C:\\Users\\APC\\Downloads\\stone.png",
+  "format": "RGBA8888",
+  "size": { "w": 432, "h": 108 },
+  "scale": "1"
+ }
+}

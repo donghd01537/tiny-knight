@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/actors/bull_controller.gd" id="1_controller"]
+[ext_resource type="Script" path="res://scripts/layered_animation.gd" id="2_anim"]
+[ext_resource type="Script" path="res://scripts/components/combatant.gd" id="3_combatant"]
+[ext_resource type="Script" path="res://scripts/components/hp_bar.gd" id="4_hp_bar"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bull"]
+radius = 24.0
+
+[node name="Bull" type="CharacterBody2D"]
+script = ExtResource("1_controller")
+
+[node name="BullAnimation" type="Node2D" parent="."]
+script = ExtResource("2_anim")
+scale = Vector2(1.5, 1.5)
+character_name = "bull"
+weapon_name = "shield"
+weapon_offset = Vector2(25, 8)
+
+[node name="WeaponLayer" type="Sprite2D" parent="BullAnimation"]
+z_index = 1
+
+[node name="CharacterLayer" type="Sprite2D" parent="BullAnimation"]
+z_index = 2
+
+[node name="Combatant" type="Node" parent="."]
+script = ExtResource("3_combatant")
+max_hp = 300
+atk = 6
+attack_range = 80.0
+attack_cooldown = 1.0
+
+[node name="HpBar" type="Node2D" parent="."]
+z_index = 10
+z_as_relative = false
+position = Vector2(-49, -49)
+scale = Vector2(0.5, 0.5)
+script = ExtResource("4_hp_bar")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_bull")

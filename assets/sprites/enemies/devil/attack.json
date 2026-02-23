@@ -1,0 +1,47 @@
+{ "frames": [
+   {
+    "filename": "devil 0.png",
+    "frame": { "x": 0, "y": 0, "w": 193, "h": 193 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 193, "h": 193 },
+    "sourceSize": { "w": 193, "h": 193 },
+    "duration": 100
+   },
+   {
+    "filename": "devil 1.png",
+    "frame": { "x": 193, "y": 0, "w": 193, "h": 193 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 193, "h": 193 },
+    "sourceSize": { "w": 193, "h": 193 },
+    "duration": 100
+   },
+   {
+    "filename": "devil 2.png",
+    "frame": { "x": 386, "y": 0, "w": 193, "h": 193 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 193, "h": 193 },
+    "sourceSize": { "w": 193, "h": 193 },
+    "duration": 100
+   },
+   {
+    "filename": "devil 3.png",
+    "frame": { "x": 579, "y": 0, "w": 193, "h": 193 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 193, "h": 193 },
+    "sourceSize": { "w": 193, "h": 193 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "https://github.com/LibreSprite/LibreSprite/",
+  "version": "1.1-dev",
+  "image": "D:\\tools\\devil-sheet.png",
+  "format": "RGBA8888",
+  "size": { "w": 772, "h": 193 },
+  "scale": "1"
+ }
+}
