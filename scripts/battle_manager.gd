@@ -18,6 +18,11 @@ var wolf_scene := preload("res://scenes/actors/Wolf.tscn")
 var devil_scene := preload("res://scenes/actors/Devil.tscn")
 var summon_effect_scene := preload("res://scenes/effects/SummonEffect.tscn")
 
+## Gargoyle exclusion zones — must match battle_decor.gd corner positions + scale
+const GARGOYLE_AVOID_RADIUS := 90.0
+const GARGOYLE_TOP_LEFT  := Vector2(130.0, 190.0)  # FIELD_LEFT+40,  FIELD_TOP
+const GARGOYLE_TOP_RIGHT := Vector2(590.0, 190.0)  # FIELD_RIGHT-40, FIELD_TOP
+
 var spawn_timer: float = 0.0
 var hero: Node2D = null
 var is_game_over: bool = false
@@ -76,13 +81,22 @@ func _process(delta: float) -> void:
 		spawn_interval = maxf(spawn_interval_min, spawn_interval - spawn_speedup_rate)
 
 
+func _in_gargoyle_zone(pos: Vector2) -> bool:
+	return pos.distance_to(GARGOYLE_TOP_LEFT) < GARGOYLE_AVOID_RADIUS \
+		or pos.distance_to(GARGOYLE_TOP_RIGHT) < GARGOYLE_AVOID_RADIUS
+
+
 func spawn_random_enemy() -> void:
-	# Random position within playable area
+	# Random position within playable area, avoiding gargoyle corners
 	var top_30 := spawn_y_min + (spawn_y_max - spawn_y_min) * 0.3
-	var spawn_pos := Vector2(
-		randf_range(spawn_x_min, spawn_x_max),
-		randf_range(spawn_y_min, top_30)
-	)
+	var spawn_pos := Vector2.ZERO
+	for _attempt in 10:
+		spawn_pos = Vector2(
+			randf_range(spawn_x_min, spawn_x_max),
+			randf_range(spawn_y_min, top_30)
+		)
+		if not _in_gargoyle_zone(spawn_pos):
+			break
 
 	# Play summon effect first, then spawn enemy
 	var summon := summon_effect_scene.instantiate()

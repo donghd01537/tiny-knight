@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://xi3tw7d4v53j"]
+[gd_scene load_steps=10 format=3 uid="uid://xi3tw7d4v53j"]
 
 [ext_resource type="Script" uid="uid://bk3ilaux68h5e" path="res://scripts/battle_manager.gd" id="5_manager"]
 [ext_resource type="Texture2D" uid="uid://bki561v4i57y" path="res://assets/backgrounds/battle_bg.png" id="6_battle_bg"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" path="res://scenes/actors/VoidSpirit.tscn" id="8_void_spirit"]
 [ext_resource type="PackedScene" path="res://scenes/actors/Bull.tscn" id="9_bull"]
 [ext_resource type="Script" uid="uid://b22pn2aqemi1d" path="res://scripts/battle_decor.gd" id="10_decor"]
+[ext_resource type="PackedScene" path="res://scenes/ui/PlayerHUD.tscn" id="11_hud"]
 
 [sub_resource type="RectangleShape2D" id="wall_vertical"]
 size = Vector2(50, 1280)
@@ -33,6 +34,8 @@ position = Vector2(330, 920)
 
 [node name="Bull" parent="." instance=ExtResource("9_bull")]
 position = Vector2(240, 800)
+
+[node name="PlayerHUD" parent="." instance=ExtResource("11_hud")]
 
 [node name="GameOverLabel" type="Label" parent="."]
 anchors_preset = 8

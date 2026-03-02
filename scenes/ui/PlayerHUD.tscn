@@ -1,0 +1,175 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Script"    path="res://scripts/ui/player_hud.gd"                                   id="1_hud"]
+[ext_resource type="Script"    path="res://scripts/ui/virtual_joystick.gd"                              id="2_joystick"]
+[ext_resource type="Texture2D" path="res://assets/controller/base.png"                                  id="3_base"]
+[ext_resource type="Texture2D" path="res://assets/controller/knob.png"                                  id="4_knob"]
+[ext_resource type="Script"    path="res://scripts/ui/sky_drop_targeter.gd"                             id="5_targeter"]
+[ext_resource type="Texture2D" uid="uid://b4lv7duu2urtu" path="res://assets/controller/attack_icon.png"                           id="6_attack"]
+[ext_resource type="Texture2D" uid="uid://cuqgy6f20qatc" path="res://assets/sprites/characters/breaker/skills/sky_drop_icon.png"  id="7_sky_drop"]
+[ext_resource type="Texture2D" uid="uid://et32iopp5p0h"  path="res://assets/sprites/weapons/axe/skills/throw_icon.png"            id="8_throw"]
+[ext_resource type="Texture2D" uid="uid://bc7ctg8e2pnug" path="res://assets/sprites/characters/breaker/skills/tornado_icon.png"   id="9_tornado"]
+
+[node name="PlayerHUD" type="CanvasLayer"]
+script = ExtResource("1_hud")
+
+; ── Virtual Joystick ─ dynamic position ──────────────────────────────────────
+; Hidden by default. PlayerHUD spawns it at the first touch position.
+; Fixed size 192×192 so begin() can compute center correctly.
+[node name="Joystick" type="Control" parent="."]
+script = ExtResource("2_joystick")
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 192.0
+offset_bottom = 192.0
+modulate = Color(1, 1, 1, 0.35)
+
+[node name="Base" type="TextureRect" parent="Joystick"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource("3_base")
+expand_mode = 1
+
+[node name="Knob" type="TextureRect" parent="Joystick"]
+offset_left = 70.0
+offset_top = 70.0
+offset_right = 122.0
+offset_bottom = 122.0
+texture = ExtResource("4_knob")
+
+; ── Sky Drop Targeting Overlay ───────────────────────────────────────────────
+[node name="SkyDropTargeter" type="Control" parent="."]
+script = ExtResource("5_targeter")
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+visible = false
+
+; ── Skill Pad ─ bottom-right ─────────────────────────────────────────────────
+; AttackBtn mirrors the joystick: 192×192, same margins (14 right, 54 bottom).
+; 3 skill buttons (64×64) arc around it at radius 130.
+;
+; Container: 300×320  (offset -314 / -374 / -14 / -54 from bottom-right)
+; Attack screen pos unchanged — container expanded 20px left, attack shifted 20px right inside it.
+; Skill radius = 140px from attack centre → gap = 140−77−32 = 31px clear space.
+; Local coords (origin = top-left of SkillPad):
+;   AttackBtn  : (107,127)–(261,281)  centre (184,204)   154×154
+;   TornadoBtn : (152, 32)–(216, 96)  270° / directly above   64×64
+;   SkyDropBtn : ( 53, 73)–(117,137)  225° / upper-left        64×64
+;   ThrowBtn   : ( 12,172)–( 76,236)  180° / left              64×64
+[node name="SkillPad" type="Control" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -314.0
+offset_top = -374.0
+offset_right = -14.0
+offset_bottom = -54.0
+
+[node name="AttackBtn" type="TextureButton" parent="SkillPad"]
+offset_left = 107.0
+offset_top = 127.0
+offset_right = 261.0
+offset_bottom = 281.0
+texture_normal = ExtResource("6_attack")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="TornadoBtn" type="TextureButton" parent="SkillPad"]
+offset_left = 146.0
+offset_top = 26.0
+offset_right = 222.0
+offset_bottom = 102.0
+texture_normal = ExtResource("9_tornado")
+ignore_texture_size = true
+stretch_mode = 0
+
+; Cooldown: solid circle (set via code), clockwise wipe from 12-o'clock, hidden when ready.
+[node name="Cooldown" type="TextureProgressBar" parent="SkillPad/TornadoBtn"]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 76.0
+offset_bottom = 76.0
+mouse_filter = 2
+visible = false
+fill_mode = 4
+radial_initial_angle = -90.0
+tint_progress = Color(0, 0, 0, 0.7)
+max_value = 1.0
+value = 0.0
+
+; Ring outline: always visible, texture set via code.
+[node name="OutlineRing" type="TextureRect" parent="SkillPad/TornadoBtn"]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 76.0
+offset_bottom = 76.0
+mouse_filter = 2
+modulate = Color(1, 1, 1, 0.5)
+
+[node name="SkyDropBtn" type="TextureButton" parent="SkillPad"]
+offset_left = 47.0
+offset_top = 67.0
+offset_right = 123.0
+offset_bottom = 143.0
+texture_normal = ExtResource("7_sky_drop")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Cooldown" type="TextureProgressBar" parent="SkillPad/SkyDropBtn"]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 76.0
+offset_bottom = 76.0
+mouse_filter = 2
+visible = false
+fill_mode = 4
+radial_initial_angle = -90.0
+tint_progress = Color(0, 0, 0, 0.7)
+max_value = 1.0
+value = 0.0
+
+[node name="OutlineRing" type="TextureRect" parent="SkillPad/SkyDropBtn"]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 76.0
+offset_bottom = 76.0
+mouse_filter = 2
+modulate = Color(1, 1, 1, 0.5)
+
+[node name="ThrowBtn" type="TextureButton" parent="SkillPad"]
+offset_left = 6.0
+offset_top = 166.0
+offset_right = 82.0
+offset_bottom = 242.0
+texture_normal = ExtResource("8_throw")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Cooldown" type="TextureProgressBar" parent="SkillPad/ThrowBtn"]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 76.0
+offset_bottom = 76.0
+mouse_filter = 2
+visible = false
+fill_mode = 4
+radial_initial_angle = -90.0
+tint_progress = Color(0, 0, 0, 0.7)
+max_value = 1.0
+value = 0.0
+
+[node name="OutlineRing" type="TextureRect" parent="SkillPad/ThrowBtn"]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 76.0
+offset_bottom = 76.0
+mouse_filter = 2
+modulate = Color(1, 1, 1, 0.5)
+
+; No signal connections — touch handled manually in player_hud._input()

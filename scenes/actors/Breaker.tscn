@@ -1,12 +1,13 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=9 format=3]
 
-[ext_resource type="Script" path="res://scripts/actors/breaker_controller.gd" id="1_controller"]
+[ext_resource type="Script" path="res://scripts/actors/breaker_player_controller.gd" id="1_controller"]
 [ext_resource type="Script" path="res://scripts/layered_animation.gd" id="2_anim"]
 [ext_resource type="Script" path="res://scripts/components/combatant.gd" id="3_combatant"]
 [ext_resource type="Script" path="res://scripts/skills/rage_skill.gd" id="4_rage"]
 [ext_resource type="Script" path="res://scripts/skills/sky_drop_skill.gd" id="5_sky_drop"]
 [ext_resource type="Script" path="res://scripts/skills/throw_skill.gd" id="6_throw"]
 [ext_resource type="Script" path="res://scripts/components/hp_bar.gd" id="7_hp_bar"]
+[ext_resource type="Script" path="res://scripts/skills/tornado_skill.gd" id="8_tornado"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_breaker"]
 radius = 24.0
@@ -31,7 +32,7 @@ script = ExtResource("3_combatant")
 max_hp = 240
 atk = 5
 attack_range = 80.0
-attack_cooldown = 0.9
+attack_cooldown = 0.63
 
 [node name="RageSkill" type="Node" parent="."]
 script = ExtResource("4_rage")
@@ -39,11 +40,15 @@ cooldown = 8.0
 
 [node name="ThrowSkill" type="Node" parent="."]
 script = ExtResource("6_throw")
-cooldown = 7.0
+cooldown = 5.0
 
 [node name="SkyDropSkill" type="Node" parent="."]
 script = ExtResource("5_sky_drop")
 cooldown = 5.0
+
+[node name="TornadoSkill" type="Node" parent="."]
+script = ExtResource("8_tornado")
+cooldown = 8.0
 
 [node name="HpBar" type="Node2D" parent="."]
 z_index = 10

@@ -1,20 +1,23 @@
 class_name SkyDropSkill
 extends Skill
-## Sky Drop — breaker leaps and crashes on the nearest enemy.
+## Sky Drop — Breaker leaps to a manually chosen position and crashes there.
+## Set `manual_position` before calling activate().
 ## Frames 0-1 play at the character's position (wind-up).
-## Frames 2-3 play at the enemy's position (impact + damage).
-## Asset path: assets/sprites/characters/{character_name}/skills/sky_drop.png
+## Frames 2-3 play at the drop position (impact + splash damage).
 
-const SKILL_RANGE := 180.0
-const ANIM_FPS := 8.0
-const ANIM_SCALE := Vector2(1.8, 1.8)
+const SKILL_RANGE := 230.0   ## Max cast distance (enforced by HUD targeting UI)
+const HIT_RADIUS  := 50.0    ## Splash damage radius at landing
+const ANIM_FPS    := 8.0
+const ANIM_SCALE  := Vector2(1.8, 1.8)
 const PHASE_SWITCH_FRAME := 2
 
+## Set by the HUD before activate() is called.
+var manual_position: Vector2 = Vector2.ZERO
+
 var _owner_node: Node2D = null
-var _hidden_nodes: Array = []  # All Node2D children hidden during cast
-var _target: Node2D = null
+var _hidden_nodes: Array = []
 var _combatant: Combatant = null
-var _drop_position: Vector2 = Vector2.ZERO  # Saved landing spot
+var _drop_position: Vector2 = Vector2.ZERO
 
 var _sprite: Sprite2D = null
 var _tex: Texture2D = null
@@ -29,10 +32,6 @@ func activate(owner_node: Node2D) -> void:
 	if is_active:
 		return
 
-	_target = _find_nearest_enemy(owner_node, SKILL_RANGE)
-	if not _target:
-		return
-
 	is_active = true
 	is_blocking = true
 	_owner_node = owner_node
@@ -41,7 +40,7 @@ func activate(owner_node: Node2D) -> void:
 	_waiting_to_show = false
 	_drop_position = owner_node.global_position
 
-	# Hide all visual Node2D children (character, weapon, rage sprites, etc.)
+	# Hide all visual Node2D children
 	_hidden_nodes.clear()
 	for child in owner_node.get_children():
 		if child is Node2D and child.visible:
@@ -51,7 +50,6 @@ func activate(owner_node: Node2D) -> void:
 	# Load texture from character-specific skill folder
 	if not _tex:
 		var char_name: String = "breaker"
-		# Try to get character_name from the animation node
 		for child in owner_node.get_children():
 			if child.get_script() and child.get("character_name") != null:
 				char_name = child.character_name
@@ -65,7 +63,7 @@ func activate(owner_node: Node2D) -> void:
 		for i in count:
 			_frames.append(Rect2i(i * h, 0, h, h))
 
-	# Spawn sprite at scene root so position is in world space
+	# Spawn sprite at scene root (world space)
 	_sprite = Sprite2D.new()
 	_sprite.centered = true
 	_sprite.scale = ANIM_SCALE
@@ -106,22 +104,32 @@ func _process(delta: float) -> void:
 		_finish()
 		return
 
-	# Switch to enemy position at phase boundary
+	# Phase switch: teleport character and sprite to manual drop position
 	if _frame == PHASE_SWITCH_FRAME:
-		if _target and is_instance_valid(_target):
-			_drop_position = _target.global_position + Vector2(-40, 0)
+		_drop_position = manual_position
 		_sprite.global_position = _drop_position
 		_owner_node.global_position = _drop_position
 
-	# Deal damage on first impact frame
+	# Splash damage at landing
 	if _frame == PHASE_SWITCH_FRAME and not _damage_dealt:
 		_damage_dealt = true
-		if _target and is_instance_valid(_target):
-			var target_combatant := _target.get_node_or_null("Combatant") as Combatant
-			if target_combatant and not target_combatant.is_dead and _combatant:
-				target_combatant.take_damage(_combatant.atk, Combatant.HIT_SKILL)
+		_deal_splash_damage()
 
 	_apply_frame()
+
+
+func _deal_splash_damage() -> void:
+	if not _combatant:
+		return
+	for enemy in get_tree().get_nodes_in_group("enemies"):
+		if not enemy is Node2D or not is_instance_valid(enemy):
+			continue
+		var dist := _drop_position.distance_to((enemy as Node2D).global_position)
+		if dist > HIT_RADIUS:
+			continue
+		var ec := (enemy as Node).get_node_or_null("Combatant") as Combatant
+		if ec and not ec.is_dead:
+			ec.take_damage(_combatant.atk, Combatant.HIT_SKILL)
 
 
 func _apply_frame() -> void:
@@ -139,37 +147,14 @@ func _restore_visuals() -> void:
 			node.visible = true
 
 
-func _find_nearest_enemy(owner_node: Node2D, range_limit: float) -> Node2D:
-	var nearest: Node2D = null
-	var nearest_dist := range_limit
-
-	for enemy in owner_node.get_tree().get_nodes_in_group("enemies"):
-		if not enemy is Node2D:
-			continue
-		if not is_instance_valid(enemy):
-			continue
-		var ec := (enemy as Node).get_node_or_null("Combatant") as Combatant
-		if ec and ec.is_dead:
-			continue
-		var dist := owner_node.global_position.distance_to((enemy as Node2D).global_position)
-		if dist < nearest_dist:
-			nearest_dist = dist
-			nearest = enemy
-
-	return nearest
-
-
 func _finish() -> void:
 	if _sprite:
 		_sprite.queue_free()
 		_sprite = null
 
-	# Reveal character at landing position immediately
 	if _owner_node and is_instance_valid(_owner_node):
 		_owner_node.global_position = _drop_position
 		_restore_visuals()
 
-	# Keep blocking until attack cooldown completes
 	_waiting_to_show = true
-	_target = null
 	_end()

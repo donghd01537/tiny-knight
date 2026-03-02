@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dtr35gbwdtms5"
-path="res://.godot/imported/throw.png-971a51bc82643fe12b80000c403fcfbf.ctex"
+uid="uid://bc7ctg8e2pnug"
+path="res://.godot/imported/tornado_icon.png-a46b5f4b3f912d90443956aa0e223702.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/weapons/axe/throw.png"
-dest_files=["res://.godot/imported/throw.png-971a51bc82643fe12b80000c403fcfbf.ctex"]
+source_file="res://assets/sprites/characters/breaker/skills/tornado_icon.png"
+dest_files=["res://.godot/imported/tornado_icon.png-a46b5f4b3f912d90443956aa0e223702.ctex"]
 
 [params]
 

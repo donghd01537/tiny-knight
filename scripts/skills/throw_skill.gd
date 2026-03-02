@@ -2,7 +2,7 @@ class_name ThrowSkill
 extends Skill
 ## Axe Throw — throws the axe bouncing up to 4 enemies, then returns to character.
 ## Sprite travels in world space. Character stays idle (is_blocking) throughout.
-## Asset path: assets/sprites/weapons/axe/throw.png
+## Asset path: assets/sprites/weapons/axe/skills/throw.png
 
 const SKILL_RANGE  := 250.0   # Initial target search range
 const BOUNCE_RANGE := 180.0   # Range to find next bounce target
@@ -35,8 +35,7 @@ func activate(owner_node: Node2D) -> void:
 	if is_active:
 		return
 
-	var weapon_range := WeaponData.get_attack_range(WeaponData.get_owner_weapon(owner_node), SKILL_RANGE)
-	var first_target := _find_nearest_enemy(owner_node, owner_node.global_position, weapon_range, [])
+	var first_target := _find_nearest_enemy(owner_node, owner_node.global_position, SKILL_RANGE, [])
 	if not first_target:
 		return
 
@@ -49,7 +48,7 @@ func activate(owner_node: Node2D) -> void:
 
 	# Load texture (4 frames, 64x64 each)
 	if not _tex:
-		_tex = load("res://assets/sprites/weapons/axe/throw.png") as Texture2D
+		_tex = load("res://assets/sprites/weapons/axe/skills/throw.png") as Texture2D
 	if _tex:
 		_frames.clear()
 		var h := _tex.get_height()

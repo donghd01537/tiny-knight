@@ -8,7 +8,7 @@ const BONES_TEXTURE = preload("res://assets/backgrounds/decor/bones.png")
 const GARGOYLE_FRAME_W := 108
 const GARGOYLE_FRAME_H := 108
 const GARGOYLE_FRAMES := 4
-const GARGOYLE_SCALE := 1.0
+const GARGOYLE_SCALE := 1.5
 
 # Bones: 192x160 grid → 6 cols × 5 rows of 32x32
 const BONES_FRAME_W := 32
@@ -26,8 +26,8 @@ const FIELD_BOTTOM := 1140.0
 
 # Gargoyle corner centers: exactly at field corners, no padding
 var _corner_positions := [
-	Vector2(FIELD_LEFT  + 10, FIELD_TOP),     # top-left
-	Vector2(FIELD_RIGHT - 10, FIELD_TOP),     # top-right
+	Vector2(FIELD_LEFT  + 40, FIELD_TOP),     # top-left
+	Vector2(FIELD_RIGHT - 40, FIELD_TOP),     # top-right
 	Vector2(FIELD_LEFT  + 10, FIELD_BOTTOM),  # bottom-left
 	Vector2(FIELD_RIGHT - 10, FIELD_BOTTOM),  # bottom-right
 ]
@@ -44,7 +44,7 @@ func _ready() -> void:
 
 
 func _spawn_gargoyles() -> void:
-	for i in range(4):
+	for i in range(2):  ## top-left + top-right only; bottom corners are used by the HUD
 		var spr := Sprite2D.new()
 		spr.texture = GARGOYLE_TEXTURE
 		spr.region_enabled = true

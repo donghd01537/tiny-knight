@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/random_map.gd" id="1_random_map"]
+[ext_resource type="PackedScene" path="res://scenes/actors/Breaker.tscn" id="2_breaker"]
+[ext_resource type="Script" path="res://scripts/ui/minimap.gd" id="3_minimap"]
+[ext_resource type="PackedScene" path="res://scenes/ui/PlayerHUD.tscn" id="4_hud"]
+
+[node name="random_map" type="Node2D"]
+script = ExtResource("1_random_map")
+
+[node name="Breaker" parent="." instance=ExtResource("2_breaker")]
+use_constrain_bounds = false
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(640, 360)
+enabled = true
+
+[node name="PlayerHUD" parent="." instance=ExtResource("4_hud")]
+
+[node name="MiniMapHUD" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="MiniMap" type="Control" parent="MiniMapHUD"]
+script = ExtResource("3_minimap")

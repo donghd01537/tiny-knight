@@ -22,6 +22,12 @@ func can_activate() -> bool:
 	return not is_active and _cooldown_timer <= 0.0
 
 
+func cooldown_fraction() -> float:
+	if cooldown <= 0.0:
+		return 0.0
+	return clampf(_cooldown_timer / cooldown, 0.0, 1.0)
+
+
 ## Called by the controller to start the skill.
 func activate(owner_node: Node2D) -> void:
 	pass

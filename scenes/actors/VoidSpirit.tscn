@@ -30,7 +30,7 @@ script = ExtResource("3_combatant")
 max_hp = 60
 atk = 4
 attack_range = 120.0
-attack_cooldown = 1.2
+attack_cooldown = 0.84
 
 [node name="ChainLightningSkill" type="Node" parent="."]
 script = ExtResource("4_chain")
